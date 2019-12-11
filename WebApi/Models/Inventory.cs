@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
-    public abstract class Inventory : IValidatableObject
+    public class Inventory : IValidatableObject
     {
         /// <summary>
         /// Identification key
@@ -50,7 +50,7 @@ namespace WebApi.Models
         [Display(Name = "Kaina")]
         public decimal MonetaryValue { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();
             List<string> members = new List<string>();
