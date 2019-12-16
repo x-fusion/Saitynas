@@ -12,6 +12,8 @@ namespace WebApi.Models
         /// <summary>
         /// Identification key
         /// </summary>
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         /// <summary>
         /// Item name
@@ -34,6 +36,7 @@ namespace WebApi.Models
         [Range(0, double.MaxValue, ErrorMessage = "Neleistina reikšmė.")]
         [DataType(DataType.Currency, ErrorMessage = "Neleistinas duomenų tipas.")]
         [Display(Name = "Uždirbta")]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal Revenue { get; set; }
         /// <summary>
         /// Days spent at rent
@@ -48,13 +51,14 @@ namespace WebApi.Models
         [Range(0, double.MaxValue, ErrorMessage = "Neleistina reikšmė.")]
         [DataType(DataType.Currency, ErrorMessage = "Neleistinas duomenų tipas.")]
         [Display(Name = "Kaina")]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal MonetaryValue { get; set; }
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();
             List<string> members = new List<string>();
-            if (MonetaryValue <= 0)
+            if (MonetaryValue < 0)
             {
                 members.Add(nameof(MonetaryValue));
                 results.Add(new ValidationResult("Kaina negali būti neigiama.", members));
