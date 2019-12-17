@@ -11,60 +11,55 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InventoriesController : ControllerBase
+    public class RoofRacksController : ControllerBase
     {
         private readonly WarehouseContext _context;
 
-        public InventoriesController(WarehouseContext context)
+        public RoofRacksController(WarehouseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Inventories
+        // GET: api/RoofRacks
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IEnumerable<Inventory>>> GetInventories()
+        public async Task<ActionResult<IEnumerable<RoofRack>>> GetRoofRacks()
         {
-            List<Inventory> items = await _context.Inventories.ToListAsync();
-            if(items.Count > 0)
-            {
-                return Ok(items);
-            }
-            return NoContent();
+            return await _context.RoofRacks.ToListAsync();
         }
 
-        // GET: api/Inventories/5
+        // GET: api/RoofRacks/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Inventory>> GetInventory(int id)
+        public async Task<ActionResult<RoofRack>> GetRoofRack(int id)
         {
-            var inventory = await _context.Inventories.FindAsync(id);
+            var roofRack = await _context.RoofRacks.FindAsync(id);
 
-            if (inventory == null)
+            if (roofRack == null)
             {
                 return NotFound();
             }
 
-            return inventory;
+            return roofRack;
         }
 
-        // PUT: api/Inventories/5
+        // PUT: api/RoofRacks/5
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{id}")]
-
-        public async Task<IActionResult> PutInventory(int id, Inventory inventory)
+        public async Task<IActionResult> PutRoofRack(int id, RoofRack roofRack)
         {
-            if (id != inventory.ID)
+            if (id != roofRack.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(inventory).State = EntityState.Modified;
+            _context.Entry(roofRack).State = EntityState.Modified;
 
             try
             {
@@ -72,7 +67,7 @@ namespace WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InventoryExists(id))
+                if (!RoofRackExists(id))
                 {
                     return NotFound();
                 }
@@ -82,42 +77,42 @@ namespace WebApi.Controllers
                 }
             }
 
-            return Ok(inventory);
+            return NoContent();
         }
 
-        // POST: api/Inventories
+        // POST: api/RoofRacks
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Inventory>> PostInventory(Inventory inventory)
+        public async Task<ActionResult<RoofRack>> PostRoofRack(RoofRack roofRack)
         {
-            _context.Inventories.Add(inventory);
+            _context.RoofRacks.Add(roofRack);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetInventory", new { id = inventory.ID }, inventory);
+            return CreatedAtAction("GetRoofRack", new { id = roofRack.ID }, roofRack);
         }
 
-        // DELETE: api/Inventories/5
+        // DELETE: api/RoofRacks/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Inventory>> DeleteInventory(int id)
+        public async Task<ActionResult<RoofRack>> DeleteRoofRack(int id)
         {
-            var inventory = await _context.Inventories.FindAsync(id);
-            if (inventory == null)
+            var roofRack = await _context.RoofRacks.FindAsync(id);
+            if (roofRack == null)
             {
                 return NotFound();
             }
 
-            _context.Inventories.Remove(inventory);
+            _context.RoofRacks.Remove(roofRack);
             await _context.SaveChangesAsync();
 
-            return inventory;
+            return roofRack;
         }
 
-        private bool InventoryExists(int id)
+        private bool RoofRackExists(int id)
         {
-            return _context.Inventories.Any(e => e.ID == id);
+            return _context.RoofRacks.Any(e => e.ID == id);
         }
     }
 }

@@ -11,60 +11,54 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InventoriesController : ControllerBase
+    public class BicycleRacksController : ControllerBase
     {
         private readonly WarehouseContext _context;
 
-        public InventoriesController(WarehouseContext context)
+        public BicycleRacksController(WarehouseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Inventories
+        // GET: api/BicycleRacks
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<IEnumerable<Inventory>>> GetInventories()
+        public async Task<ActionResult<IEnumerable<BicycleRack>>> GetBicycleRacks()
         {
-            List<Inventory> items = await _context.Inventories.ToListAsync();
-            if(items.Count > 0)
-            {
-                return Ok(items);
-            }
-            return NoContent();
+            return await _context.BicycleRacks.ToListAsync();
         }
 
-        // GET: api/Inventories/5
+        // GET: api/BicycleRacks/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Inventory>> GetInventory(int id)
+        public async Task<ActionResult<BicycleRack>> GetBicycleRack(int id)
         {
-            var inventory = await _context.Inventories.FindAsync(id);
+            var bicycleRack = await _context.BicycleRacks.FindAsync(id);
 
-            if (inventory == null)
+            if (bicycleRack == null)
             {
                 return NotFound();
             }
 
-            return inventory;
+            return bicycleRack;
         }
 
-        // PUT: api/Inventories/5
+        // PUT: api/BicycleRacks/5
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPut("{id}")]
-
-        public async Task<IActionResult> PutInventory(int id, Inventory inventory)
+        public async Task<IActionResult> PutBicycleRack(int id, BicycleRack bicycleRack)
         {
-            if (id != inventory.ID)
+            if (id != bicycleRack.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(inventory).State = EntityState.Modified;
+            _context.Entry(bicycleRack).State = EntityState.Modified;
 
             try
             {
@@ -72,7 +66,7 @@ namespace WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!InventoryExists(id))
+                if (!BicycleRackExists(id))
                 {
                     return NotFound();
                 }
@@ -82,42 +76,42 @@ namespace WebApi.Controllers
                 }
             }
 
-            return Ok(inventory);
+            return NoContent();
         }
 
-        // POST: api/Inventories
+        // POST: api/BicycleRacks
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Inventory>> PostInventory(Inventory inventory)
+        public async Task<ActionResult<BicycleRack>> PostBicycleRack(BicycleRack bicycleRack)
         {
-            _context.Inventories.Add(inventory);
+            _context.BicycleRacks.Add(bicycleRack);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetInventory", new { id = inventory.ID }, inventory);
+            return CreatedAtAction("GetBicycleRack", new { id = bicycleRack.ID }, bicycleRack);
         }
 
-        // DELETE: api/Inventories/5
+        // DELETE: api/BicycleRacks/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Inventory>> DeleteInventory(int id)
+        public async Task<ActionResult<BicycleRack>> DeleteBicycleRack(int id)
         {
-            var inventory = await _context.Inventories.FindAsync(id);
-            if (inventory == null)
+            var bicycleRack = await _context.BicycleRacks.FindAsync(id);
+            if (bicycleRack == null)
             {
                 return NotFound();
             }
 
-            _context.Inventories.Remove(inventory);
+            _context.BicycleRacks.Remove(bicycleRack);
             await _context.SaveChangesAsync();
 
-            return inventory;
+            return bicycleRack;
         }
 
-        private bool InventoryExists(int id)
+        private bool BicycleRackExists(int id)
         {
-            return _context.Inventories.Any(e => e.ID == id);
+            return _context.BicycleRacks.Any(e => e.ID == id);
         }
     }
 }
