@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Models;
 
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WarehouseContext))]
-    partial class WarehouseContextModelSnapshot : ModelSnapshot
+    [Migration("20191218060554_Orders")]
+    partial class Orders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,6 +69,9 @@ namespace WebApi.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<TimeSpan>("CreationTime")
+                        .HasColumnType("time");
+
                     b.Property<string>("Customer")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -83,9 +88,6 @@ namespace WebApi.Migrations
                     b.Property<int?>("RoofRackID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WarehouseID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("WheelChainID")
                         .HasColumnType("int");
 
@@ -97,33 +99,9 @@ namespace WebApi.Migrations
 
                     b.HasIndex("RoofRackID");
 
-                    b.HasIndex("WarehouseID");
-
                     b.HasIndex("WheelChainID");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("WebApi.Models.Warehouse", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Warehouses");
                 });
 
             modelBuilder.Entity("WebApi.Models.BicycleRack", b =>
@@ -196,10 +174,6 @@ namespace WebApi.Migrations
                     b.HasOne("WebApi.Models.RoofRack", "RoofRack")
                         .WithMany()
                         .HasForeignKey("RoofRackID");
-
-                    b.HasOne("WebApi.Models.Warehouse", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("WarehouseID");
 
                     b.HasOne("WebApi.Models.WheelChain", "WheelChain")
                         .WithMany()

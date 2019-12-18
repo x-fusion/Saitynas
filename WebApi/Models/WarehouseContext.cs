@@ -12,9 +12,11 @@ namespace WebApi.Models
         {
 
         }
-        public DbSet<BicycleRack> BicycleRacks { get; set; }
-        public DbSet<Inventory> Inventories { get; set; }
-        public DbSet<RoofRack> RoofRacks { get; set; }
-        public DbSet<WheelChain> WheelChains { get; set; }
+        public virtual DbSet<BicycleRack> BicycleRacks { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<RoofRack> RoofRacks { get; set; }
+        public virtual DbSet<WheelChain> WheelChains { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Warehouse> Warehouses { get; set; }
     }
 }

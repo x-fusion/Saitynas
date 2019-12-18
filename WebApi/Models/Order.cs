@@ -12,21 +12,28 @@ namespace WebApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        public int WarehouseID { get; set; }
         [Display(Name = "Užsakovas")]
         [DataType(DataType.Text)]
         [StringLength(255, ErrorMessage = "Užsakovo ilgis turi būti tarp 5 ir 255 simbolių.", MinimumLength = 5)]
         public string Customer { get; set; }
         [Display(Name = "Užsakymo sukūrimo data")]
-        [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
-        [Display(Name = "Užsakymo sukūrimo laikas")]
-        [DataType(DataType.Time)]
-        public TimeSpan CreationTime { get; set; }
         [Display(Name = "Užsakymo pradžios data")]
-        [DataType(DataType.Date)]
         public DateTime OrderStartDate { get; set; }
+        public int? RoofRackID { get; set; }
+        [ForeignKey("RoofRackID")]
+        public virtual RoofRack RoofRack { get; set; }
+        public int? BicycleRackID { get; set; }
+        [ForeignKey("BicycleRackID")]
+        public virtual BicycleRack BicycleRack { get; set; }
+        public int? InventoryID { get; set; }
+        [ForeignKey("InventoryID")]
+        public virtual Inventory Inventory { get; set; }
+        public int? WheelChainID { get; set; }
+        [ForeignKey("WheelChainID")]
+        public virtual WheelChain WheelChain { get; set; }
         [Display(Name = "Užsakymo pabaigos data")]
-        [DataType(DataType.Date)]
         public DateTime OrderEndDate { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -34,8 +41,10 @@ namespace WebApi.Models
             List<string> members = new List<string>();
             if(OrderEndDate.Date < OrderStartDate.Date)
             {
-                results.Add(new ValidationResult(""))
+                members.Add(nameof(OrderEndDate));
+                results.Add(new ValidationResult("Užsakymo pradžia negali būti vėliau už pabaigą.", members));
             }
+            return results;
         }
     }
 }
