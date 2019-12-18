@@ -1,0 +1,54 @@
+﻿@model WebClient.Models.Inventory
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Ar tikrai norite pašalinti?</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Revenue)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Revenue)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalRentDuration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalRentDuration)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MonetaryValue)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MonetaryValue)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" asp-all-route-id="@Model.ID">
+        <a class="btn btn-outline-secondary" asp-action="Index"><i class="fas fa-long-arrow-alt-left"></i> Grįžti</a>
+        <input type="submit" value="Šalinti" class="btn btn-danger" />
+    </form>
+</div>

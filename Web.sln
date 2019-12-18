@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{F0C777E2-6ACE-4E07-9D45-951411D567BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataContract", "DataContract\DataContract.csproj", "{8AE1FC02-0A8B-4140-A10D-424077731514}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{9FE30A9A-C005-4995-A6A8-1F74DC119F99}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{F0C777E2-6ACE-4E07-9D45-951411D567BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0C777E2-6ACE-4E07-9D45-951411D567BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0C777E2-6ACE-4E07-9D45-951411D567BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AE1FC02-0A8B-4140-A10D-424077731514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AE1FC02-0A8B-4140-A10D-424077731514}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AE1FC02-0A8B-4140-A10D-424077731514}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AE1FC02-0A8B-4140-A10D-424077731514}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FE30A9A-C005-4995-A6A8-1F74DC119F99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FE30A9A-C005-4995-A6A8-1F74DC119F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FE30A9A-C005-4995-A6A8-1F74DC119F99}.Release|Any CPU.ActiveCfg = Release|Any CPU

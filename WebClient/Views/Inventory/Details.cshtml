@@ -1,0 +1,28 @@
+﻿@model WebClient.Models.Inventory
+
+@{
+    ViewData["Title"] = "Inventoriaus peržiūra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="card w-auto">
+        <div class="card-header text-center font-weight-bold">
+            Inventoriaus peržiūra
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">@Html.DisplayNameFor(model => model.ID): <span class="float-right">@Html.DisplayFor(model => model.ID)</span></li>
+            <li class="list-group-item">@Html.DisplayNameFor(model => model.Title):<span class="float-right">@Html.DisplayFor(model => model.Title)</span></li>
+            <li class="list-group-item">@Html.DisplayNameFor(model => model.Amount): <span class="float-right">@Html.DisplayFor(model => model.Amount) vnt.</span></li>
+            <li class="list-group-item">@Html.DisplayNameFor(model => model.Revenue):<span class="float-right"> @Html.DisplayFor(model => model.Revenue) &euro;</span></li>
+            <li class="list-group-item">@Html.DisplayNameFor(model => model.TotalRentDuration): <span class="float-right">@Html.DisplayFor(model => model.TotalRentDuration) d.</span></li>
+            <li class="list-group-item">@Html.DisplayNameFor(model => model.MonetaryValue): <span class="float-right">@Html.DisplayFor(model => model.MonetaryValue) &euro;</span></li>
+        </ul>
+        <div class="card-footer">
+            <div class="row justify-content-between mx-auto">
+                <a asp-action="Index" class="btn btn-outline-secondary">&larr;Grįžtį į sąrąšą</a>
+                @Html.ActionLink("Redaguoti", "Edit", new { id = Model.ID }, new { @class = "btn btn-outline-primary ml-md-5" })
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebClient.Models.Inventory>
+
+@{
+    ViewData["Title"] = "Inventoriaus peržiūra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Inventorius</h1>
+
+<p>
+    <a asp-action="Create">Įtraukti naują</a>
+</p>
+<table class="table table-responsive-md table-hover table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.Revenue)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.TotalRentDuration)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.MonetaryValue)
+            </th>
+            <th class="text-center">Operacijos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.Amount) vnt.
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.Revenue)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.TotalRentDuration) d.
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.MonetaryValue)
+                <td class="text-center">
+                    <div class="btn-group">
+                        @Html.ActionLink("Redaguoti", "Edit", new { id = item.ID }, new { @class = "btn btn-outline-primary" })
+                        @Html.ActionLink("Peržiūrėti", "Details", new { id = item.ID }, new { @class = "btn btn-outline-secondary" })
+                        @Html.ActionLink("Šalinti", "Delete", new { id = item.ID }, new { @class = "btn btn-outline-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
