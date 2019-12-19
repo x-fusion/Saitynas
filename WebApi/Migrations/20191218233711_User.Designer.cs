@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApi.Models;
 
 namespace WebApi.Migrations
 {
     [DbContext(typeof(WarehouseContext))]
-    partial class WarehouseContextModelSnapshot : ModelSnapshot
+    [Migration("20191218233711_User")]
+    partial class User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,41 +104,6 @@ namespace WebApi.Migrations
                     b.HasIndex("WheelChainID");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("WebApi.Models.RefreshToken", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Invalidated")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JwtId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Used")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("UserID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("WebApi.Models.User", b =>
@@ -269,7 +236,7 @@ namespace WebApi.Migrations
                         .WithMany()
                         .HasForeignKey("RoofRackID");
 
-                    b.HasOne("WebApi.Models.Warehouse", "Warehouse")
+                    b.HasOne("WebApi.Models.Warehouse", null)
                         .WithMany("Orders")
                         .HasForeignKey("WarehouseID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -278,13 +245,6 @@ namespace WebApi.Migrations
                     b.HasOne("WebApi.Models.WheelChain", "WheelChain")
                         .WithMany()
                         .HasForeignKey("WheelChainID");
-                });
-
-            modelBuilder.Entity("WebApi.Models.RefreshToken", b =>
-                {
-                    b.HasOne("WebApi.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }

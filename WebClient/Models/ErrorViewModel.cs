@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace WebClient.Models
 {
@@ -7,5 +7,7 @@ namespace WebClient.Models
         public string RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public string ErrorTitle => "Įvyko klaida...";
+        public string ErrorMessage { get; set; }
     }
 }

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<WebClient.Models.Inventory>
+﻿@model IEnumerable<WebClient.Models.Warehouse>
 
 @{
-    ViewData["Title"] = "Inventoriaus peržiūra";
+    ViewData["Title"] = "Sandėlių peržiūra";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Inventorius</h1>
+<h1 class="text-center">Sandėliai</h1>
 
 <p>
     <a asp-action="Create">Įtraukti naują</a>
@@ -17,16 +17,7 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th class="text-right">
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th class="text-right">
-                @Html.DisplayNameFor(model => model.Revenue)
-            </th>
-            <th class="text-right">
-                @Html.DisplayNameFor(model => model.TotalRentDuration)
-            </th>
-            <th class="text-right">
-                @Html.DisplayNameFor(model => model.MonetaryValue)
+                @Html.DisplayNameFor(model => model.Address)
             </th>
             <th class="text-center w-25">Operacijos</th>
         </tr>
@@ -39,18 +30,11 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td class="text-right">
-                    @Html.DisplayFor(modelItem => item.Amount) vnt.
+                    @Html.DisplayFor(modelItem => item.Address)
                 </td>
-                <td class="text-right">
-                    @Html.DisplayFor(modelItem => item.Revenue)
-                </td>
-                <td class="text-right">
-                    @Html.DisplayFor(modelItem => item.TotalRentDuration) d.
-                </td>
-                <td class="text-right">
-                    @Html.DisplayFor(modelItem => item.MonetaryValue)
                 <td class="text-center">
                     <div class="btn-group">
+                        @Html.ActionLink("Užsakymai", "Orders", new { id = item.ID }, new { @class = "btn btn-outline-dark" })
                         @Html.ActionLink("Redaguoti", "Edit", new { id = item.ID }, new { @class = "btn btn-outline-primary" })
                         @Html.ActionLink("Peržiūrėti", "Details", new { id = item.ID }, new { @class = "btn btn-outline-secondary" })
                         @Html.ActionLink("Šalinti", "Delete", new { id = item.ID }, new { @class = "btn btn-outline-danger" })

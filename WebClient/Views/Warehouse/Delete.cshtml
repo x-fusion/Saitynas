@@ -1,4 +1,4 @@
-﻿@model WebClient.Models.Inventory
+﻿@model WebClient.Models.Warehouse
 
 @{
     ViewData["Title"] = "Šalinti";
@@ -22,28 +22,10 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Amount)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Revenue)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Revenue)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalRentDuration)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalRentDuration)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MonetaryValue)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MonetaryValue)
+            @Html.DisplayFor(model => model.Address)
         </dd>
     </dl>
     

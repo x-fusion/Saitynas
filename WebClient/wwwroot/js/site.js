@@ -3,8 +3,16 @@
 
 // Write your JavaScript code.
 
-$(document).on("click", "#delete", function () {
-    event.preventDefault();
-    event.stopPropagation();
-    console.log($(this));
-});
+$(document).ready(
+    function () {
+        console.log('test');
+        $("[type='datetime-local']").datepicker(
+            {
+                dateFormat: "yy-mm-dd",
+                showTime: true,
+                time24h: true
+            }
+        );
+
+    }
+);

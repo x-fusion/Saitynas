@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class InventoriesController : ControllerBase
@@ -26,7 +29,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<IEnumerable<Inventory>>> GetInventories()
         {
-            List<Inventory> items = await _context.Inventories.ToListAsync();
+            List<Inventory> items = await _context.Inventories.Where(x => x.Discriminator == "Inventory").ToListAsync();
             if(items.Count > 0)
             {
                 return Ok(items);

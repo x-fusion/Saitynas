@@ -1,0 +1,45 @@
+﻿@model WebClient.Models.Warehouse
+
+@{
+    ViewData["Title"] = "Sandėlio redagavimas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card w-50">
+            <form asp-action="Edit" asp-route-id="@Model.ID">
+                <div class="card-header p-0">
+                    <nav class="navbar navbar-expand-md navbar-light p-1">
+                        <h2 class="navbar-brand mx-auto font-weight-bolder">Sandėlio redagavimas</h2>
+                        <a asp-action="Index" class="btn close text-dark"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </nav>
+                </div>
+                <div class="card-body">
+                    <div class="form-inline">
+                        <label asp-for="Title" class="control-label col-md-2"></label>
+                        <input asp-for="Title" class="ml-md-1 form-control col-md-8" value="@Model.Title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-inline mt-md-1">
+                        <label asp-for="Address" class="control-label col-md-2"></label>
+                        <input asp-for="Address" class="ml-md-1 form-control col-md-8" value="@Model.Address" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <a class="btn btn-outline-secondary" asp-action="Index"><i class="fas fa-long-arrow-alt-left"></i> Grįžti</a>
+                        <button type="submit" value="Edit" class="btn btn-outline-primary ml-auto"><i class="fas fa-check"></i> Redaguoti</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebClient.Models.Order>
+
+@{
+    ViewData["Title"] = "Užsakymų peržiūra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var id = ViewContext.HttpContext.Request.RouteValues["id"];
+}
+
+<h1 class="text-center">Sandėlio užsakymai</h1>
+
+<p>
+    @Html.ActionLink("Įtraukti naują", "CreateOrder", "Warehouse", new { id = id })
+</p>
+<table class="table table-responsive-md table-hover table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.OrderStartDate)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.OrderEndDate)
+            </th>
+            <th class="text-center w-25">Operacijos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.OrderStartDate)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => item.OrderEndDate)
+                </td>
+                <td class="text-center">
+                    <div class="btn-group">
+                        @Html.ActionLink("Redaguoti", "EditOrder", new { id = id, orderId = item.ID }, new { @class = "btn btn-outline-primary" })
+                        @Html.ActionLink("Peržiūrėti", "DetailsOrder", new { id = id, orderId = item.ID }, new { @class = "btn btn-outline-secondary" })
+                        @Html.ActionLink("Šalinti", "DeleteOrder", new { id = id, orderId = item.ID }, new { @class = "btn btn-outline-danger" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

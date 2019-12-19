@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +12,7 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class WarehousesController : ControllerBase
@@ -42,16 +46,14 @@ namespace WebApi.Controllers
         }
         // GET: api/Warehouses/1/orders
         [HttpGet("{id}/orders")]
-        public async Task<ActionResult<List<Order>>> GetWarehouseOrders(int id)
+        public ActionResult<List<Order>> GetWarehouseOrders(int id)
         {
-            var warehouse = await _context.Warehouses.FindAsync(id);
-
-            if (warehouse == null)
+            var orders =  _context.Orders.Where(x => x.WarehouseID == id).ToList();
+            if (orders == null)
             {
                 return NotFound();
             }
-
-            return warehouse.Orders;
+            return orders;
         }
         // GET: api/Warehouses/1/orders/4
         [HttpGet("{id}/orders/{orderId}")]
@@ -81,6 +83,7 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
+            result.Warehouse = null;
             return result;
         }
         // PUT: api/Warehouses/5/order/1
@@ -140,8 +143,8 @@ namespace WebApi.Controllers
             warehouse.Orders.Add(order);
 
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetWarehouseOrder", new { id, order.ID }, order);
+            int orderId = order.ID;
+            return CreatedAtAction("GetWarehouseOrder", new { id, orderId }, orderId);
         }
 
         // PUT: api/Warehouses/5

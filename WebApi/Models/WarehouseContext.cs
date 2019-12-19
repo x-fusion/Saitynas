@@ -18,5 +18,7 @@ namespace WebApi.Models
         public virtual DbSet<WheelChain> WheelChains { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

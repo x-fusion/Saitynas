@@ -1,0 +1,42 @@
+﻿@model WebClient.Models.Order
+
+@{
+    ViewData["Title"] = "Šalinti";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Ar tikrai norite pašalinti?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderStartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderStartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderEndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderEndDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteOrder" asp-route-id="@ViewContext.HttpContext.Request.RouteValues["id"]" asp-route-orderId="@Model.ID">
+        <a class="btn btn-outline-secondary" asp-action="Index"><i class="fas fa-long-arrow-alt-left"></i> Grįžti</a>
+        <input type="submit" value="Šalinti" class="btn btn-danger" />
+    </form>
+</div>

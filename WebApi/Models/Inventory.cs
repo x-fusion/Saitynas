@@ -53,6 +53,7 @@ namespace WebApi.Models
         [Display(Name = "Kaina")]
         [Column(TypeName = "decimal(10,2)")]
         public decimal MonetaryValue { get; set; }
+        public string Discriminator { get; set; }
 
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

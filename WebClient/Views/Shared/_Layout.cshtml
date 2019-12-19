@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string sub = HttpContextAccessor.HttpContext.Session.GetString("sub");
+    string role = HttpContextAccessor.HttpContext.Session.GetString("role");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,25 +12,77 @@
     <title>@ViewData["Title"] - StogoBagažinės</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/regular.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/regular.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StogoBagažinės</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-taxi"></i>StogoBagažinės</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 justify-content-start">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Pradžia</a>
                         </li>
+
+                        @{
+                            if (sub != null && role != null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Warehouse" asp-action="Index">Sandėliai</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Daiktai
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" asp-controller="Inventory" asp-action="Index">Generinis inventorius</a>
+                                        <a class="dropdown-item disabled" href="#">Dviračių laikikliai</a>
+                                        <a class="dropdown-item disabled" href="#">Bagažinės</a>
+                                        <a class="dropdown-item disabled" href="#">Padangų grandinės</a>
+                                    </div>
+                                </li>
+                                <span class="ml-md-auto navbar-text">
+                                    Rolė:@role Vartotojas:@sub
+                                </span>
+                                <li class="nav-item dropdown ml-md-auto">
+                                    <a class="btn btn-danger" asp-area="" asp-controller="Home" asp-action="Logout">Atsijungti</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item dropdown ml-md-auto">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Autorizacija
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <form asp-action="Login" class="px-4 py-3">
+                                            <div class="form-inline">
+                                                <label for="Email">El. paštas</label>
+                                                <input id="Email" name="Email" class="form-control col-md-12" placeholder="email@example.com">
+                                                <span for="Email" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-inline">
+                                                <label for="Password">Slaptažodis</label>
+                                                <input id="Password" type="password" name="Password" class="form-control col-md-12" placeholder="Slaptažodis">
+                                                <span for="Password" class="text-danger"></span>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mx-auto mt-1">Prisijungti</button>
+                                        </form>
+                                        <div class="dropdown-divider"></div>
+                                        <button type="button" class="btn btn-success ml-4" data-toggle="modal" data-target="#register">Registruotis</button>
+                                    </div>
+                                </li>
+                            }
+                        }
                     </ul>
                 </div>
             </div>
@@ -40,26 +98,23 @@
         <footer class="footer-bs">
             <div class="row m-0">
                 <div class="col-md-3 footer-brand animated fadeInLeft">
-                    <h2>Logo</h2>
-                    <p>Projektas sukurtas naudojant .NET Core 3.0. <br />Svetainės CRUD ir validacijos logika įgyvendinta pasitelkus .NET Core 3.0 WebApi</p>
+                    <p>Projektas sukurtas naudojant .NET Core 3.0. <br />Svetainės CRUD logika įgyvendinta pasitelkus .NET Core 3.0 WebApi</p>
                     <p>© 2019 Edvardas-Arnoldas Alaburda, IFF-6/3</p>
                 </div>
                 <div class="col-md-4 footer-nav animated fadeInUp">
                     <h4>Nuorodos —</h4>
                     <div class="col-md-6">
                         <ul class="pages">
-                            <li><a href="#">WebApi dokumentacija</a></li>
-                            <li><a href="#">Projekto modulis</a></li>
+                            <li><i class="fas fa-file-contract"></i><a href="https://localhost:44347/swagger/index.html">WebApi dokumentacija</a></li>
+                            <li><i class="fas fa-graduation-cap"></i><a href="https://moodle.ktu.edu/course/view.php?id=932">Projekto modulis</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-2 footer-social animated fadeInDown">
                     <h4>Soc. tinklai</h4>
                     <ul>
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">RSS</a></li>
+                        <li><i class="fab fa-facebook"></i><a href="#">Facebook</a></li>
+                        <li><i class="fab fa-linkedin"></i><a href="#">Linkedin</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,6 +122,9 @@
     </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+            integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+            crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

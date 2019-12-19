@@ -12,7 +12,9 @@ namespace WebApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        [ForeignKey("WarehouseID")]
         public int WarehouseID { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
         [Display(Name = "Užsakovas")]
         [DataType(DataType.Text)]
         [StringLength(255, ErrorMessage = "Užsakovo ilgis turi būti tarp 5 ir 255 simbolių.", MinimumLength = 5)]
